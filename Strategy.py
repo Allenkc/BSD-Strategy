@@ -125,7 +125,7 @@ class Strategy():
             ]
 
 
-        #10% stop loss
+        #15% stop loss
         if self.cost_price != 0:
             if self.last_type == 'buy' and close_price <= self.cost_price * 0.85 :
                 self.last_type = 'sell'
@@ -158,5 +158,17 @@ class Strategy():
                     'pair': pair,
                 }
             ]
+        elif self.last_type == 'buy' and cci_signal == 4:
+            self.last_type = 'sell'
+            return [
+                {
+                    'exchange': exchange,
+                    'amount': -target_currency_amount,
+                    'price': -1,
+                    'type': 'MARKET',
+                    'pair': pair,
+                }
+            ]
+
 
         return []
